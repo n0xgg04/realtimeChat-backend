@@ -12,6 +12,7 @@ export function socketApp(io: any) {
             console.log('user disconnected');
         });
 
+
         socket.on('online', async (data: any) => {
             const {token} = data;
             const userInfo = getUserInfo(token as string);
@@ -63,7 +64,6 @@ export function socketApp(io: any) {
 
                 //send message to all socketId
                 socketList.forEach((socket: any) => {
-                    console.log("send message to", socket.socketId)
                     io.to(socket.socketId).emit('receive-message', {
                         conversation_id: conversation_id,
                         message_content: message_content,
@@ -78,3 +78,4 @@ export function socketApp(io: any) {
 
     });
 }
+
