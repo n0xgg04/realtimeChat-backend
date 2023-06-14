@@ -11,6 +11,7 @@ const http_1 = __importDefault(require("http"));
 const socket_io_1 = require("socket.io");
 const config_1 = __importDefault(require("./config"));
 const morgan_1 = __importDefault(require("morgan"));
+const socket_1 = require("./services/socket");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 dotenv_1.default.config();
@@ -25,9 +26,7 @@ const io = new socket_io_1.Server(server, {
         origin: '*',
     }
 });
-io.on('connection', (socket) => {
-    console.log('a user connected');
-});
+(0, socket_1.socketApp)(io);
 server.listen(config_1.default.port, () => {
     console.log(`Server running on port ${config_1.default.port}`);
 });

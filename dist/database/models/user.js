@@ -17,6 +17,7 @@ function default_1(sequelize, DataTypes) {
         password: DataTypes.STRING,
         email: DataTypes.STRING,
         avatar: DataTypes.STRING,
+        socketId: DataTypes.STRING,
         createdAt: {
             type: DataTypes.DATE,
             field: 'createdAt',

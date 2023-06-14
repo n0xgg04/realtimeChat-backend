@@ -19,6 +19,7 @@ export default function(sequelize: Sequelize, DataTypes: any): any {
         password: DataTypes.STRING,
         email: DataTypes.STRING,
         avatar: DataTypes.STRING,
+        socketId : DataTypes.STRING,
         createdAt: {
                 type: DataTypes.DATE,
                 field: 'createdAt',

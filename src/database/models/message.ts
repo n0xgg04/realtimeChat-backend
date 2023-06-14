@@ -1,46 +1,47 @@
 import { Model, Sequelize } from 'sequelize';
 
 export default function(sequelize: Sequelize, DataTypes: any): any {
-    class Participant extends Model {
+    class Messages extends Model {
         static associate(models: any) {
-            Participant.belongsTo(models.Conversations, {
+            Messages.belongsTo(models.Conversations, {
                 foreignKey: 'conversation_id',
                 as: 'conversation',
             });
-            Participant.hasMany(models.Messages, {
-                foreignKey: 'conversation_id',
-                as: 'conversation_messages',
+            Messages.belongsTo(models.Participants, {
+                foreignKey: 'user_id',
+                as: 'conversation_member',
             });
         }
     }
 
-    Participant.init(
+    Messages.init(
         {
-            participant_id: {
+            message_id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
+                autoIncrement: true,
             },
             conversation_id: {
                 type: DataTypes.INTEGER,
-                primaryKey: true,
             },
-            user_id: {
-                type: DataTypes.INTEGER,
-            },
+            content: DataTypes.STRING,
+            user_id: DataTypes.INTEGER,
             createdAt: {
                 type: DataTypes.DATE,
                 field: 'created_at',
+                allowNull: false,
             },
             updatedAt: {
                 type: DataTypes.DATE,
                 field: 'updated_at',
+                allowNull: false,
             },
         },
         {
             sequelize,
-            modelName: 'Participants',
+            modelName: 'Messages',
         }
     );
 
-    return Participant;
+    return Messages;
 }

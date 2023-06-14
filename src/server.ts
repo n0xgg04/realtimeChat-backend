@@ -6,6 +6,7 @@ import http from 'http'
 import { Server } from 'socket.io'
 import config from './config'
 import morgan from 'morgan'
+import {socketApp} from './services/socket'
 
 const app: Express = express()
 app.use(cors())
@@ -23,11 +24,7 @@ const io = new Server(server, {
         origin: '*',
     }
 })
-
-io.on('connection', (socket) => {
-    console.log('a user connected')
-
-})
+socketApp(io)
 
 server.listen(config.port, () => {
     console.log(`Server running on port ${config.port}`)

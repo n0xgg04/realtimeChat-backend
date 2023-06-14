@@ -7,6 +7,28 @@ import {DataTypes} from "sequelize";
 
 const info: Router = Router()
 const UserModel = User(sequelize,DataTypes)
+info.get('/avatar/:user_id', async(req, res) => {
+    const user_id = req.params.user_id
+    const data = await UserModel.findOne({
+        where: {
+            user_id: user_id
+        }
+    })
+    if (data) {
+        const avatarUrl = data.avatar;
+        res.status(200).json({
+            status: 'success',
+            data: {
+                avatar: avatarUrl
+            }
+        })
+    }
+
+    res.status(404).json({
+        status: 'error',
+        message: 'Not found'
+    })
+})
 info.get('/me', async(req, res) => {
     //get header
     const token : any = req.headers['authorization']
